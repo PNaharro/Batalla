@@ -123,9 +123,9 @@ public class VentanaMenu extends JFrame{
 		panelPersonatges3.add(imagenE3);
 		
 		//Color y stats al panelstats1
-		barVida1 = new JProgressBar(0, vida1);
+		barVida1 = new JProgressBar(0, vidaMax);
 		barVida1.setStringPainted(true);
-		barVida1.setString("Vida: " +vida1/vidaMax*100+ "%");
+		barVida1.setString("Vida: " +(vida2*100)/vidaMax+ "%");
 		barVida1.setForeground(Color.RED);
 		barForca1 = new JProgressBar(0, forcaMax);
 		barForca1.setStringPainted(true);
@@ -155,10 +155,9 @@ public class VentanaMenu extends JFrame{
 		panel2.add(barVida1);
 		panel2.setLayout(new BoxLayout(panel2,BoxLayout.X_AXIS));
 		
-		//Stats panelstats 2
+		//Stats panelstats 2 + setStringPainted true
 		barVida2 = new JProgressBar(0, vida2);
 		barVida2.setStringPainted(true);
-		barVida2.setString("Vida: " +vida2/vidaMax*100+ "%");
 		barForca2 = new JProgressBar(0, forcaMax);
 		barForca2.setStringPainted(true);
 		barForca2.setString("Forca: "+ for2);
@@ -173,19 +172,14 @@ public class VentanaMenu extends JFrame{
 		barVelocitat2.setString("Vel: "+ vel2);
 
 		//color de las barras
-		barVida2.setStringPainted(true);
 		barVida2.setForeground(Color.RED);
-		barForca2.setStringPainted(true);
 		barForca2.setForeground(Color.orange);
-		barDefensa2.setStringPainted(true);
 		barDefensa2.setForeground(Color.blue);
-		barAgilitat2.setStringPainted(true);
 		barAgilitat2.setForeground(Color.cyan);
-		barVelocitat2.setStringPainted(true);
 		barVelocitat2.setForeground(Color.LIGHT_GRAY);
 		
 		barVida2.setValue(vida2);
-		barVida2.setString("Vida: " +vida2/vidaMax*100+"%");
+		barVida2.setString("Vida: " +(vida2*100)/vidaMax+"%");
 		
 		panelStats2.add(barForca2);
 		panelStats2.add(barDefensa2);
@@ -240,6 +234,7 @@ public class VentanaMenu extends JFrame{
 		panelBase.add(panel2, BorderLayout.WEST);
 		panelBase.add(panel3, BorderLayout.EAST);
 		
+		//add botones de pelea y limpiar consola
 		panel5.setOpaque(true);
 		panel5.add(panel4);
 		cons = new JLabel("\n\n");
@@ -272,6 +267,7 @@ public class VentanaMenu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton b =(JButton) e.getSource();
+			//poner statss
 			switch (b.getIcon().toString()) {
 			case "imagenes/maduro.jpg":
 				vida1 = 50;
@@ -337,6 +333,7 @@ public class VentanaMenu extends JFrame{
 				vel1 = 7;
 				break;
 			}
+			//rellenar barra
 			barVida1.setValue(vida1);
 			barForca1.setValue(for1);
 			barDefensa1.setValue(def1);
@@ -346,6 +343,13 @@ public class VentanaMenu extends JFrame{
 			imgMisterio1.setIcon(b.getIcon());
 			panelPersonatges.setVisible(false);
 			panelBase.setVisible(true);
+			
+			//set value at string
+			barVida1.setString("Vida: " +(int)((vida1*100)/vidaMax)+ "%");
+			barForca1.setString("Forca: "+ for1);
+			barDefensa1.setString("Def: "+ def1);
+			barAgilitat1.setString("Agi: "+ agi1);
+			barVelocitat1.setString("Vel: "+ vel1);
 			
 		}
 		
