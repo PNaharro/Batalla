@@ -2,6 +2,8 @@ package batallaRaces;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class VentanaMenu extends JFrame{
 	public static void main(String[] args) {
@@ -21,9 +24,10 @@ public class VentanaMenu extends JFrame{
 	}
 	
 	JButton personaje, arma, ranking, pelea, consola;
+	JButton imagenH,imagenH2,imagenH3,imagenD,imagenD2,imagenD3,imagenE,imagenE2,imagenE3;
 	JTextField texto;
-	JLabel imgMisterio1,imgMisterio2, humano,enano,elfo, cons;
-	JPanel panelBase,panel1,panel2,panel3,panel4,panel5,panelPersonatges1,panelStats1, panelStats2;
+	JLabel imgMisterio1,imgMisterio2, humano,enano,elfo, cons,personajes, humans, dwarfs, elfs;
+	JPanel panelBase,panel1,panel2,panel3,panel4,panel5,panelPersonatges,panelPersonatges1,panelPersonatges2,panelPersonatges3,panelStats1, panelStats2;
 	JProgressBar barForca1, barVida1, barDefensa1, barAgilitat1, barVelocitat1;
 	JProgressBar barForca2, barVida2, barDefensa2, barAgilitat2, barVelocitat2;
 	
@@ -33,14 +37,14 @@ public class VentanaMenu extends JFrame{
 	int agiMax =7;
 	int velMax=12;
 	
-	int vida1=30;
-	int forca1=10;
-	int def1=4;
-	int agi1=4;
-	int vel1=12;
+	int vida1;
+	int for1;
+	int def1;
+	int agi1;
+	int vel1;
 
 	int vida2;
-	int forca2;
+	int for2;
 	int def2;
 	int agi2;
 	int vel2;
@@ -54,7 +58,10 @@ public class VentanaMenu extends JFrame{
 		panel3 = new JPanel();
 		panel4 = new JPanel();
 		panel5 = new JPanel();
+		panelPersonatges = new JPanel();
 		panelPersonatges1 = new JPanel();
+		panelPersonatges2 = new JPanel();
+		panelPersonatges3 = new JPanel();
 		panelStats1 = new JPanel();
 		panelStats2 = new JPanel();
 		
@@ -80,35 +87,62 @@ public class VentanaMenu extends JFrame{
 		ImageIcon iH = new ImageIcon("imagenes/maduro.jpg");
 		ImageIcon iDw = new ImageIcon("imagenes/marcos.png");
 		ImageIcon iE = new ImageIcon("imagenes/Legolas_Benjamin_Drake.png");
-		JButton imagenH = new JButton(iH);
+		ImageIcon iH2 = new ImageIcon("imagenes/gerardo.png");
+		ImageIcon iDw2 = new ImageIcon("imagenes/jwan.png");
+		ImageIcon iE2 = new ImageIcon("imagenes/Meliso.png");
+		ImageIcon iH3 = new ImageIcon("imagenes/rigoberto.png");
+		ImageIcon iDw3 = new ImageIcon("imagenes/ang.png");
+		ImageIcon iE3 = new ImageIcon("imagenes/tomas.png");
+		imagenH = new JButton(iH);
 		imagenH.addActionListener(new RazaSeleccionada());
-		JButton imagenD = new JButton(iDw);
+		imagenH2 = new JButton(iH2);
+		imagenH2.addActionListener(new RazaSeleccionada());
+		imagenH3 = new JButton(iH3);
+		imagenH3.addActionListener(new RazaSeleccionada());
+		imagenD = new JButton(iDw);
 		imagenD.addActionListener(new RazaSeleccionada());
-		JButton imagenE = new JButton(iE);
+		imagenD2 = new JButton(iDw2);
+		imagenD2.addActionListener(new RazaSeleccionada());
+		imagenD3 = new JButton(iDw3);
+		imagenD3.addActionListener(new RazaSeleccionada());
+		imagenE = new JButton(iE);
 		imagenE.addActionListener(new RazaSeleccionada());
-		
+		imagenE2 = new JButton(iE2);
+		imagenE2.addActionListener(new RazaSeleccionada());
+		imagenE3 = new JButton(iE3);
+		imagenE3.addActionListener(new RazaSeleccionada());
+
 		panelPersonatges1.add(imagenH);
-		panelPersonatges1.add(imagenD);
-		panelPersonatges1.add(imagenE);
-		//imagenes y stats al panel 2
+		panelPersonatges1.add(imagenH2);
+		panelPersonatges1.add(imagenH3);
+		panelPersonatges2.add(imagenD);
+		panelPersonatges2.add(imagenD2);
+		panelPersonatges2.add(imagenD3);
+		panelPersonatges3.add(imagenE);
+		panelPersonatges3.add(imagenE2);
+		panelPersonatges3.add(imagenE3);
+		
+		//Color y stats al panelstats1
 		barVida1 = new JProgressBar(0, vida1);
 		barVida1.setStringPainted(true);
 		barVida1.setString("Vida: " +vida1/vidaMax*100+ "%");
+		barVida1.setForeground(Color.RED);
 		barForca1 = new JProgressBar(0, forcaMax);
 		barForca1.setStringPainted(true);
-		barForca1.setString("Forca: "+ forca1);
+		barForca1.setString("Forca: "+ for1);
+		barForca1.setForeground(Color.orange);
 		barDefensa1 = new JProgressBar(0, defMax);
 		barDefensa1.setStringPainted(true);
 		barDefensa1.setString("Def: "+ def1);
+		barDefensa1.setForeground(Color.blue);
 		barAgilitat1 = new JProgressBar(0, agiMax);
 		barAgilitat1.setStringPainted(true);
 		barAgilitat1.setString("Agi: "+ agi1);
+		barAgilitat1.setForeground(Color.cyan);
 		barVelocitat1 = new JProgressBar(0, velMax);
 		barVelocitat1.setStringPainted(true);
 		barVelocitat1.setString("Vel: "+ vel1);
-		
-		barVida1.setValue(vida1);
-		barForca1.setValue(forca1);
+		barVelocitat1.setForeground(Color.LIGHT_GRAY);
 		
 		panelStats1.add(barForca1);
 		panelStats1.add(barDefensa1);
@@ -121,14 +155,13 @@ public class VentanaMenu extends JFrame{
 		panel2.add(barVida1);
 		panel2.setLayout(new BoxLayout(panel2,BoxLayout.X_AXIS));
 		
-		//Stats y imagen panel 3
-		
+		//Stats panelstats 2
 		barVida2 = new JProgressBar(0, vida2);
 		barVida2.setStringPainted(true);
 		barVida2.setString("Vida: " +vida2/vidaMax*100+ "%");
 		barForca2 = new JProgressBar(0, forcaMax);
 		barForca2.setStringPainted(true);
-		barForca2.setString("Forca: "+ forca2);
+		barForca2.setString("Forca: "+ for2);
 		barDefensa2 = new JProgressBar(0, defMax);
 		barDefensa2.setStringPainted(true);
 		barDefensa2.setString("Def: "+ def2);
@@ -138,6 +171,18 @@ public class VentanaMenu extends JFrame{
 		barVelocitat2 = new JProgressBar(0, velMax);
 		barVelocitat2.setStringPainted(true);
 		barVelocitat2.setString("Vel: "+ vel2);
+
+		//color de las barras
+		barVida2.setStringPainted(true);
+		barVida2.setForeground(Color.RED);
+		barForca2.setStringPainted(true);
+		barForca2.setForeground(Color.orange);
+		barDefensa2.setStringPainted(true);
+		barDefensa2.setForeground(Color.blue);
+		barAgilitat2.setStringPainted(true);
+		barAgilitat2.setForeground(Color.cyan);
+		barVelocitat2.setStringPainted(true);
+		barVelocitat2.setForeground(Color.LIGHT_GRAY);
 		
 		barVida2.setValue(vida2);
 		barVida2.setString("Vida: " +vida2/vidaMax*100+"%");
@@ -160,9 +205,38 @@ public class VentanaMenu extends JFrame{
 		consola.addActionListener(new Consola());
 		panel4.add(pelea);
 		panel4.add(consola);
-		//add en this panelPersonatges, panel2 y panel 3
+		//add en panelPersonatges, add Panel Personatges 1,2,3
 		panelPersonatges1.setLayout(new BoxLayout(panelPersonatges1,BoxLayout.X_AXIS));
+		panelPersonatges2.setLayout(new BoxLayout(panelPersonatges2,BoxLayout.X_AXIS));
+		panelPersonatges3.setLayout(new BoxLayout(panelPersonatges3,BoxLayout.X_AXIS));
+		panelPersonatges.setVisible(false);
+		personajes = new JLabel("Choose your character");
+		personajes.setFont(new Font("Arial", Font.PLAIN, 48));
+		humans = new JLabel("Humanos");
+		dwarfs = new JLabel("Enanos");
+		elfs = new JLabel("Elfos");
+		humans.setFont(new Font("Arial", Font.PLAIN, 20));
+		dwarfs.setFont(new Font("Arial", Font.PLAIN, 20));
+		elfs.setFont(new Font("Arial", Font.PLAIN, 20));
 		
+		//PONER EL TEXTO EN EL CENTRO
+		personajes.setAlignmentX(personajes.CENTER_ALIGNMENT);
+		//PONER TEXTO A LA IZQUIERDA
+		humans.setAlignmentX(humans.CENTER_ALIGNMENT);
+		dwarfs.setAlignmentX(dwarfs.CENTER_ALIGNMENT);
+		elfs.setAlignmentX(elfs.CENTER_ALIGNMENT);
+		
+		//ADD paneles en el panel
+		panelPersonatges.add(personajes);
+		panelPersonatges.add(humans);
+		panelPersonatges.add(panelPersonatges1);
+		panelPersonatges.add(dwarfs);
+		panelPersonatges.add(panelPersonatges2);
+		panelPersonatges.add(elfs);
+		panelPersonatges.add(panelPersonatges3);
+		panelPersonatges.setLayout(new BoxLayout(panelPersonatges,BoxLayout.Y_AXIS));
+		
+		//add panel2 y 3
 		panelBase.add(panel2, BorderLayout.WEST);
 		panelBase.add(panel3, BorderLayout.EAST);
 		
@@ -174,7 +248,9 @@ public class VentanaMenu extends JFrame{
 		
 		panelBase.add(panel5, BorderLayout.SOUTH);
 		panelBase.setLayout(new BoxLayout(panelBase,BoxLayout.Y_AXIS));
-		this.add(panelBase);
+		
+		this.add(panelPersonatges, BorderLayout.CENTER);
+		this.add(panelBase, BorderLayout.NORTH);
 		
 		
 		this.setVisible(true);
@@ -185,9 +261,9 @@ public class VentanaMenu extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			JButton b =(JButton) e.getSource();
 			if (e.getActionCommand().equalsIgnoreCase("PERSONAJE")) {
-				panelPersonatges1.setVisible(true);
-				panel2.setBackground(Color.GREEN);
-			}
+				panelBase.setVisible(false);
+				panelPersonatges.setVisible(true);
+			} 
 		}
 		
 	}
@@ -196,10 +272,81 @@ public class VentanaMenu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton b =(JButton) e.getSource();
-			if (b.isSelected()) {
-				imgMisterio1.setIcon(new ImageIcon(b.getName()));
-				panelPersonatges1.setVisible(false);
+			switch (b.getIcon().toString()) {
+			case "imagenes/maduro.jpg":
+				vida1 = 50;
+				for1 = 5;
+				def1 = 3;
+				agi1 = 6;
+				vel1 = 5;
+				break;
+			case "imagenes/gerardo.png":
+				vida1 = 50;
+				for1 = 5;
+				def1 = 3;
+				agi1 = 6;
+				vel1 = 5;
+				break;
+			case "imagenes/rigoberto.png":
+				vida1 = 50;
+				for1 = 5;
+				def1 = 3;
+				agi1 = 6;
+				vel1 = 5;
+				break;
+			case "imagenes/marcos.png":
+				vida1 = 60;
+				for1 = 6;
+				def1 = 4;
+				agi1 = 5;
+				vel1 = 3;
+				break;
+			case "imagenes/jwan.png":
+				vida1 = 60;
+				for1 = 6;
+				def1 = 4;
+				agi1 = 5;
+				vel1 = 3;
+				break;
+			case "imagenes/ang.png":
+				vida1 = 60;
+				for1 = 6;
+				def1 = 4;
+				agi1 = 5;
+				vel1 = 3;
+				break;
+			case "imagenes/Legolas_Benjamin_Drake.png":
+				vida1 = 40;
+				for1 = 4;
+				def1 = 2;
+				agi1 = 7;
+				vel1 = 7;
+				break;
+			case "imagenes/Meliso.png":
+				vida1 = 40;
+				for1 = 4;
+				def1 = 2;
+				agi1 = 7;
+				vel1 = 7;
+				break;
+			case "imagenes/tomas.png":
+				vida1 = 40;
+				for1 = 4;
+				def1 = 2;
+				agi1 = 7;
+				vel1 = 7;
+				break;
 			}
+			barVida1.setValue(vida1);
+			barForca1.setValue(for1);
+			barDefensa1.setValue(def1);
+			barAgilitat1.setValue(agi1);
+			barVelocitat1.setValue(vel1);
+			System.out.println(b.getIcon().toString());
+			imgMisterio1.setIcon(b.getIcon());
+			panelPersonatges.setVisible(false);
+			panelBase.setVisible(true);
+			
 		}
 		
 	}
