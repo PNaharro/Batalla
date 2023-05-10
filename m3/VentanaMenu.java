@@ -33,7 +33,7 @@ public class VentanaMenu extends JFrame{
     JButton imagenEA1,imagenEA2,imagenEA3,imagenEA4,imagenEA5,imagenEA6,imagenEA7,imagenEA8,imagenEA9;
     JButton imagenFA1,imagenFA2,imagenFA3,imagenFA4,imagenFA5,imagenFA6,imagenFA7,imagenFA8,imagenFA9;
     JTextField texto;
-    JLabel imgMisterio1,imgMisterio2,imgArmaMisterio, humano,enano,elfo, cons,cPersonajes, cArma, humans, dwarfs, elfs;
+    JLabel imgMisterio1,imgMisterio2,imgArmaMisterio,imgArmaMisterio2, humano,enano,elfo, cons,cPersonajes, cArma, humans, dwarfs, elfs;
     JPanel panelBase,panel1,panel2,panel4,panel5,panelEntitats,panelImgArmaBars,panelBarArmas,panelBarVida1,panelBarVida2;
     JPanel panelHumanoArmas,panelEnanoArmas,panelElfoArmas;
     JPanel panelHumanoArmas1,panelHumanoArmas2,panelHumanoArmas3,panelEnanoArmas1,panelEnanoArmas2,panelEnanoArmas3,panelElfoArmas1,panelElfoArmas2,panelElfoArmas3;
@@ -110,9 +110,10 @@ public class VentanaMenu extends JFrame{
 		//imagen arma sin seleccionar
 		ImageIcon imagenArma1 = new ImageIcon("imagenes/interrogante.png");
 		imgArmaMisterio = new JLabel(imagenArma1);
+		imgArmaMisterio2 = new JLabel(imagenArma1);
 		panelImgArmaBars.add(imgArmaMisterio);
-		//add img arma a panel
-		panelImgArmaBars.add(imgArmaMisterio);
+		//add img arma a panel del jugador2
+		panelImgArmaBars2.add(imgArmaMisterio2);
 		
 		
 		//add botones
@@ -233,15 +234,16 @@ public class VentanaMenu extends JFrame{
 		panelBarArmas.add(barDefensaA1);
 		panelBarArmas.add(barAgilitatA1);
 		panelBarArmas.add(barVelocitatA1);
+		//panel stats arma vertical
 		panelBarArmas.setLayout(new BoxLayout(panelBarArmas,BoxLayout.Y_AXIS));
 		panelImgArmaBars.add(panelBarArmas);
-		
+		//panel donde el de arriba es la barra de vida en vertical
 		panelBarVida1.setLayout(new BoxLayout(panelBarVida1,BoxLayout.Y_AXIS));
 		panel2.add(panelBarVida1);
-		//set panelImgArmaBars a boxlayout
+		//poner el panel de la imagen y las barras de stats de arma en horizontal
 		panelImgArmaBars.setLayout(new BoxLayout(panelImgArmaBars,BoxLayout.X_AXIS));
 		panelBarVida1.add(panelImgArmaBars);
-		//set panel 2 a boxLayout
+		// panel que contiene los elementos de las barras, la imagen del personaje y las stats de armas en horizontal
 		panel2.setLayout(new BoxLayout(panel2,BoxLayout.X_AXIS));
 		
 		//Stats panelstats 2 + setStringPainted true
@@ -473,6 +475,7 @@ public class VentanaMenu extends JFrame{
 		cArma.setFont(new Font("Arial", Font.PLAIN, 48));
 		cArma.setAlignmentX(cArma.CENTER_ALIGNMENT);
 		//ADD panelea en el panelPersonatges
+		panelArmas.setLayout(new BoxLayout(panelArmas,BoxLayout.Y_AXIS));
   		panelArmas.add(cArma);
 		panelArmas.add(panelHumanoArmas);
 		panelArmas.add(panelEnanoArmas);
