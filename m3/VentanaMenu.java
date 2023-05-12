@@ -13,7 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,11 +23,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class VentanaMenu extends JFrame{
-	
+
 	JButton personaje, arma, ranking, pelea, consola;
     JButton imagenH,imagenH2,imagenH3,imagenD,imagenD2,imagenD3,imagenE,imagenE2,imagenE3;
     JButton imagenA1,imagenA2,imagenA3,imagenA4,imagenA5,imagenA6,imagenA7,imagenA8,imagenA9;
@@ -33,7 +36,19 @@ public class VentanaMenu extends JFrame{
     JButton imagenEA1,imagenEA2,imagenEA3,imagenEA4,imagenEA5,imagenEA6,imagenEA7,imagenEA8,imagenEA9;
     JButton imagenFA1,imagenFA2,imagenFA3,imagenFA4,imagenFA5,imagenFA6,imagenFA7,imagenFA8,imagenFA9;
     JTextField texto;
-    JLabel imgMisterio1,imgMisterio2,imgArmaMisterio,imgArmaMisterio2, humano,enano,elfo, cons,cPersonajes, cArma, humans, dwarfs, elfs;
+    JLabel imgMisterio1;
+	static JLabel imgMisterio2;
+	JLabel imgArmaMisterio;
+	JLabel imgArmaMisterio2;
+	JLabel humano;
+	JLabel enano;
+	JLabel elfo;
+	JLabel cons;
+	JLabel cPersonajes;
+	JLabel cArma;
+	JLabel humans;
+	JLabel dwarfs;
+	JLabel elfs;
     JPanel panelBase,panel1,panel2,panel4,panel5,panelEntitats,panelImgArmaBars,panelBarArmas,panelBarVida1,panelBarVida2;
     JPanel panelHumanoArmas,panelEnanoArmas,panelElfoArmas;
     JPanel panelHumanoArmas1,panelHumanoArmas2,panelHumanoArmas3,panelEnanoArmas1,panelEnanoArmas2,panelEnanoArmas3,panelElfoArmas1,panelElfoArmas2,panelElfoArmas3;
@@ -65,7 +80,10 @@ public class VentanaMenu extends JFrame{
     JProgressBar barForca2, barVida2, barDefensa2, barAgilitat2, barVelocitat2;
     JProgressBar barForcaA2, barDefensaA2, barAgilitatA2, barVelocitatA2;
     
+    static usuario user;
 	public VentanaMenu(usuario pj) {
+		user = pj;
+		
 		//this.setLocationRelativeTo(null);
 		this.setSize(1000,800);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -171,7 +189,7 @@ public class VentanaMenu extends JFrame{
 		//Color y stats al panelstats1
 		barVida1 = new JProgressBar(0, vidaMax);
 		barVida1.setStringPainted(true);
-		barVida1.setString("Vida: " +(vida2*100)/vidaMax+ "%");
+		barVida1.setString("Vida: " +(vida1*100)/vidaMax+ "%");
 		barVida1.setForeground(Color.RED);
 		
 		barForca1 = new JProgressBar(0, forcaMax);
@@ -247,7 +265,7 @@ public class VentanaMenu extends JFrame{
 		panel2.setLayout(new BoxLayout(panel2,BoxLayout.X_AXIS));
 		
 		//Stats panelstats 2 + setStringPainted true
-		barVida2 = new JProgressBar(0, vida2);
+		barVida2 = new JProgressBar(0, vidaMax);
 		barVida2.setStringPainted(true);
 		barForca2 = new JProgressBar(0, forcaMax);
 		barForca2.setStringPainted(true);
@@ -263,8 +281,9 @@ public class VentanaMenu extends JFrame{
 		barVelocitat2.setString("Vel: "+ vel2);
 
 		//color de las barras
-		barVida2.setStringPainted(true);
+		
 		barVida2.setForeground(Color.RED);
+		barVida2.setStringPainted(true);
 		barForca2.setStringPainted(true);
 		barForca2.setForeground(Color.orange);
 		barDefensa2.setStringPainted(true);
@@ -274,8 +293,11 @@ public class VentanaMenu extends JFrame{
 		barVelocitat2.setStringPainted(true);
 		barVelocitat2.setForeground(Color.LIGHT_GRAY);
 		
+		barVida2.setForeground(Color.RED);
+		barVida2.setStringPainted(true);
 		barVida2.setValue(vida2);
 		barVida2.setString("Vida: " +(vida2*100)/vidaMax+"%");
+		
 		
 		panelStats2.add(barForca2);
 		panelStats2.add(barDefensa2);
@@ -311,7 +333,6 @@ public class VentanaMenu extends JFrame{
 		barVelocitatA2.setString("vel: "+ velA1);
 		barVelocitatA2.setStringPainted(true);
 		barVelocitatA2.setForeground(Color.LIGHT_GRAY);
-		//TODO
 		
 		panelBarArmas2.add(barForcaA2);
 		panelBarArmas2.add(barDefensaA2);
@@ -482,9 +503,9 @@ public class VentanaMenu extends JFrame{
 		panelArmas.add(panelElfoArmas);
 		panelArmas.setVisible(false);
 		
-		//add panel2 y 3
+		//add panel2 (separator) y 3
+		panel2.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0));
 		panelBase.add(panel2, BorderLayout.WEST);
-		
 		
 		panelBase.add(panel3, BorderLayout.EAST);
 		
@@ -510,7 +531,33 @@ public class VentanaMenu extends JFrame{
 		this.setVisible(true);
 	}
 	class SeleccionarRaza implements ActionListener {
-
+		static personajes Enemic() {
+			Random rand = new Random();
+    		String usuari = "root";
+    		String clau = "1234";
+    		String urlDades = "jdbc:mysql://localhost/br?serverTimezone=UTC";
+    		try
+    		{
+    			Class.forName("com.mysql.cj.jdbc.Driver");
+    			Connection conn = DriverManager.getConnection(urlDades, usuari, clau);
+    			int numEnemic = rand.nextInt(1,9);
+    			String query = "select w.nomWarrior,r.nom_raza,w.imgWarrior,r.vida,r.fuerza,r.agilidad,r.velocidad,r.defensa,r.puntos_que_da from warriors w inner join razas r on w.raza=r.id_raza where id_warriors = "+numEnemic+";";
+    			Statement stmnt = conn.createStatement();
+    			ResultSet rs = stmnt.executeQuery(query);
+    			
+    			while (rs.next()) {
+    				return new personajes(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));
+    			}
+    		}catch(
+    				ClassNotFoundException ex)
+    		{
+    			System.out.println("No trobat el Driver MySQL per JDBC.");
+    		} catch (SQLException e) {
+    			System.out.println("Excepció del tipus SQL");
+    			e.printStackTrace();
+    		}
+			return null;
+		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton b =(JButton) e.getSource();
@@ -542,23 +589,54 @@ public class VentanaMenu extends JFrame{
 	    		barVelocitatA1.setStringPainted(true);
 	            barVelocitatA1.setValue(velA1);
 	    		barVelocitatA1.setString("vel: "+ velA1);
+	    		
+	    		
+	    		personajes pjEnemic = Enemic();
+				//panel4.setBackground(Color.RED);
+	    		//TODO
+				ImageIcon imagenEnemic = new ImageIcon(pjEnemic.getImg());				
+				vida2 = pjEnemic.getVida();
+				for2 = pjEnemic.getFuerza();
+				agi2 = pjEnemic.getAgilidad();
+				vel2 = pjEnemic.getVelociadad();
+				def2 = pjEnemic.getDefensa();
+				imgMisterio2.setIcon(imagenEnemic);
+				barVida2.setStringPainted(true);
+				barVida2.setValue(vida2);
+				barVida2.setString("vida: " + ((vida2*100)/vidaMax)+ "%");
+				
+				barForca2.setStringPainted(true);
+				barForca2.setValue(for2);
+				barForca2.setString("str: " + for2);
+				barDefensa2.setStringPainted(true);
+				barDefensa2.setValue(def2);
+				barDefensa2.setString("def: " + def2);
+				barAgilitat2.setStringPainted(true);
+				barAgilitat2.setValue(agi2);
+				barAgilitat2.setString("agi: " + agi2);
+				barVelocitat2.setStringPainted(true);
+				barVelocitat2.setValue(vel2);
+				barVelocitat2.setString("vel: " + vel2);
 			} 
 		}
 		
 	}
 	class RazaSeleccionada implements ActionListener {
 		static ArrayList listar_personajes() {
-			ArrayList<personajes> personajes = new ArrayList();
+			//TODO
+			ArrayList<personajes> personajes = new ArrayList<personajes>();
 			String usuari = "root";
 			String clau = "1234";
 			String urlDades = "jdbc:mysql://localhost/br?serverTimezone=UTC";
 			try
-			{
+			{	
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				Connection conn = DriverManager.getConnection(urlDades, usuari, clau);
 				String query = "select w.nomWarrior,r.nom_raza,w.imgWarrior,r.vida,r.fuerza,r.agilidad,r.velocidad,r.defensa,r.puntos_que_da from warriors w inner join razas r on w.raza=r.id_raza;";
 				Statement stmnt = conn.createStatement();
 				ResultSet rs = stmnt.executeQuery(query);
+				
+				
 				while (rs.next()) {
 					personajes n = new personajes(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));
 					personajes.add(n);
@@ -579,6 +657,7 @@ public class VentanaMenu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ArrayList<personajes> personajes = listar_personajes();
+			
 			JButton b =(JButton) e.getSource();
 			for (int i =0 ; i<=personajes.size()-1;i++) {
 				if (personajes.get(i).getImg().equals(b.getIcon().toString())) {
@@ -606,18 +685,97 @@ public class VentanaMenu extends JFrame{
 			barVelocitat1.setValue(vel1);
 			barVelocitat1.setString("vel: " + vel1);
 			imgMisterio1.setIcon(b.getIcon());
+			
 			panelPersonatges.setVisible(false);
 			panelEntitats.setVisible(false);
 			panelBase.setVisible(true);
 			
+			ImageIcon imagenAReset = new ImageIcon("imagenes/interrogante.png");
+        	imgArmaMisterio2.setIcon(imagenAReset);
+			forA2 = 0;
+			agiA2 = 0;
+			velA2 = 0;
+			defA2 = 0;
+			barForcaA2.setStringPainted(true);
+			barForcaA2.setValue(forA2);
+			barForcaA2.setString("str: " + forA2);
+			barDefensaA2.setStringPainted(true);
+			barDefensaA2.setValue(defA2);
+			barDefensaA2.setString("def: " + defA2);
+			barAgilitatA2.setStringPainted(true);
+			barAgilitatA2.setValue(agiA2);
+			barAgilitatA2.setString("agi: " + agiA2);
+			barVelocitatA2.setStringPainted(true);
+			barVelocitatA2.setValue(velA2);
+			barVelocitatA2.setString("vel: " + velA2);
+			personajes.clear();
 		}
 		
 	}
 	class SeleccionarArma implements ActionListener {
-		
+		static ArrayList<armas> ArmaEnemic() {
+			ArrayList<armas> armasEnemic = new ArrayList<armas>();
+			String usuari = "root";
+			String clau = "1234";
+			String urlDades = "jdbc:mysql://localhost/br?serverTimezone=UTC";
+			try{
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn = DriverManager.getConnection(urlDades, usuari, clau);
+				String imgRaza = imgMisterio2.getIcon().toString();
+				int numRaza;
+				switch (imgRaza) {
+				case "imagenes/tomas.png":
+					numRaza = 1;
+					break;
+				case "imagenes/meliso.png":
+					numRaza = 1;
+					break;
+				case "imagenes/legolas.png":
+					numRaza = 1;
+					break;
+				case "imagenes/marcos.png":
+					numRaza = 2;
+					break;
+				case "imagenes/ang.png":
+					numRaza = 2;
+					break;
+				case "imagenes/jwan.png":
+					numRaza = 2;
+					break;
+				case "imagenes/maduro.png":
+					numRaza = 3;
+					break;
+				case "imagenes/rigoberto.png":
+					numRaza = 3;
+					break;
+				case "imagenes/gerardo.png":
+					numRaza = 3;
+					break;
+					default:
+						numRaza=0;
+				}
+				String query2 = "select w.imgWeapon, w.weapon_name, w.fuerza,w.velocidad, w.agilidad, w.defensa,w.puntos_que_da, a.id_raza from br.weapons w inner join weapons_available a ON w.weapon_id = a.weapon_id where a.id_raza = "+numRaza+";";
+				Statement stmnt2 = conn.createStatement();
+				ResultSet rs2 = stmnt2.executeQuery(query2);
+				armasEnemic.clear();
+				while (rs2.next()) {
+					
+					armas a = new armas(rs2.getString(1), rs2.getString(2),rs2.getInt(3),rs2.getInt(4),rs2.getInt(5),rs2.getInt(6),rs2.getInt(7));
+					
+					armasEnemic.add(a);
+				}
+				return armasEnemic;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException sql) {
+				sql.printStackTrace();
+			}
+			return armasEnemic;
+		}
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton b =(JButton) e.getSource();
+            
             if (e.getActionCommand().equalsIgnoreCase("ARMA")) {
             	if(raza.equals("huma")) {
             		panelEntitats.setVisible(true);
@@ -644,7 +802,28 @@ public class VentanaMenu extends JFrame{
 	                panelPersonatges.setVisible(false);
 	                panelBase.setVisible(false);
             	}
-                
+            	
+            	ArrayList<armas> armaEnemic = ArmaEnemic();
+            	Random rand = new Random();
+                int numEnemic = rand.nextInt(armaEnemic.size());
+            	ImageIcon imagenAEnemic = new ImageIcon(armaEnemic.get(numEnemic).getImg());
+            	imgArmaMisterio2.setIcon(imagenAEnemic);
+				forA2 = armaEnemic.get(numEnemic).getFuerza();
+				agiA2 = armaEnemic.get(numEnemic).getAgilidad();
+				velA2 = armaEnemic.get(numEnemic).getVelociadad();
+				defA2 = armaEnemic.get(numEnemic).getDefensa();
+				barForcaA2.setStringPainted(true);
+				barForcaA2.setValue(forA2);
+				barForcaA2.setString("str: " + forA2);
+				barDefensaA2.setStringPainted(true);
+				barDefensaA2.setValue(defA2);
+				barDefensaA2.setString("def: " + defA2);
+				barAgilitatA2.setStringPainted(true);
+				barAgilitatA2.setValue(agiA2);
+				barAgilitatA2.setString("agi: " + agiA2);
+				barVelocitatA2.setStringPainted(true);
+				barVelocitatA2.setValue(velA2);
+				barVelocitatA2.setString("vel: " + velA2);
             }
         }
         
@@ -729,14 +908,17 @@ public class VentanaMenu extends JFrame{
 		
 	}
 	class Pelea implements ActionListener {
+		//TODO
+		
 		static void usu() {
 			
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			JButton b =(JButton) e.getSource();
 			if (e.getActionCommand().equalsIgnoreCase("PELEA")) {
-				//panel4.setBackground(Color.RED);
+				
 			}
 		}
 		
