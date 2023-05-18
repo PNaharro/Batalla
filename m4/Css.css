@@ -1,0 +1,64 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    overflow-x: auto;
+  }
+  h1{
+    color: gold;
+    font-style: italic;
+    text-shadow: 1px 1px 1px black;
+  }
+ 
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  @media (max-width: 767px) {
+    table {
+      display: flex;
+    }
+    tbody {
+      
+      display: flex;
+      flex-direction: row;
+
+    }
+    tr {
+      
+      display: flex;
+      flex-direction: column;
+      
+    }
+    tr:first-child{
+      position: sticky;
+      left:0px;
+    }
+    
+    th {
+      
+      padding-top: calc((100px / 2) );
+      padding-bottom: calc(100px / 2);
+      height: 74px;
+      font-size: 2em;
+      font-style: italic;
+      font-weight: bolder;
+      text-align: center;
+      vertical-align: middle;
+      
+      
+    }
+    td{
+      padding-top: calc(100px / 2 + 0.5em + 2px);
+      padding-bottom: calc(100px / 2 + 0.5em + 3px);
+      font-size: 2em;
+      vertical-align: middle;
+    }
+  }
