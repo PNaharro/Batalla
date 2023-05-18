@@ -104,10 +104,10 @@ public class VentanaMenu extends JFrame{
 	public VentanaMenu(usuario pj) {
 		user = pj;
 		
-		//this.setLocationRelativeTo(null);
 		this.setSize(1000,800);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
+		//creacion de paneles
 		panelBase= new JPanel();
 		panel1 = new JPanel();
 		panel2 = new JPanel();
@@ -166,6 +166,7 @@ public class VentanaMenu extends JFrame{
 				a =new Ventana_ranking();
 			}
 		});
+		//add 3 botones a panel 1
 		panel1.add(personaje);
 		panel1.add(arma);
 		panel1.add(ranking);
@@ -200,7 +201,7 @@ public class VentanaMenu extends JFrame{
 		imagenE2.addActionListener(new RazaSeleccionada());
 		imagenE3 = new JButton(iE3);
 		imagenE3.addActionListener(new RazaSeleccionada());
-		
+		//add al panel de personajes las imagenes
 		panelPersonatges1.add(imagenH);
 		panelPersonatges1.add(imagenH2);
 		panelPersonatges1.add(imagenH3);
@@ -370,30 +371,32 @@ public class VentanaMenu extends JFrame{
 		//set panelImgArmaBars a boxlayout
 		panelImgArmaBars2.setLayout(new BoxLayout(panelImgArmaBars2,BoxLayout.X_AXIS));
 		panelBarVida2.add(panelImgArmaBars2);
-		//-------------------------------------------------------------------
+		//add al panel3 las stats del enemigo, la imagen del enemigo sin escoger y el panel de la barra de vida + armas + stats armas
 		panel3.add(panelStats2);
 		panel3.add(imgMisterio2);
 		panel3.add(panelBarVida2);
 		panel3.setLayout(new BoxLayout(panel3,BoxLayout.X_AXIS));
 		
-		//TODO
+		//crear boton pelea
 		pelea = new JButton("PELEA");
+		//semilla random
 		Random rand = new Random();
 		
-		ArrayList<personajes> listaJugadores = new ArrayList<personajes>();
 		pelea.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
+				//calcular velocidades totales
 				velTot1 = vel1 + velA1;
 				velTot2 = vel2 + velA2;
+				//si la imagen es distinta a sin escoger personaje, y el arma es distinta a sin escoger arma, entra a jugar
 				if (!imgMisterio1.getIcon().toString().equals("imagenes/PersonaAnonima.jpg") && !imgArmaMisterio.getIcon().toString().equals("imagenes/interrogante.png")) {
 					
 					personajes jugador = new personajes(name1,vida1,for1,agi1,vel1,def1, forA1,velA1);
 					personajes adversario = new personajes(name2,vida2,for2,agi2,vel2,def2, forA2,velA2);
 					
-					
+					//desaparece el boton de escoger personaje, arma y ranking
 					panel1.setVisible(false);
-					
+					//condiciones del combate inicio ----------------------------------------
 					if ((velTot1)>(velTot2) && jugador.getVida()>0 && adversario.getVida()>0) {
 						consola_texto.append("Torn de "+ jugador.getName()+"(jugador)\n");
 						if ((agi1*10) >rand.nextInt(1,100)) {
@@ -511,6 +514,9 @@ public class VentanaMenu extends JFrame{
 							}
 						}
 					}
+					//condiciones del combate final ----------------------------------------
+					
+					//pintar la barra, cambiar valor maximo, poner valores, poner texto a la barra.
 					barVida1.setStringPainted(true);
 					barVida1.setMaximum(vidaMax1);
 		        	barVida1.setValue(jugador.getVida());
@@ -524,7 +530,7 @@ public class VentanaMenu extends JFrame{
 		        	barVida2.setValue(adversario.getVida());
 		        	barVida2.setString("vida: "+((adversario.getVida()*100)/vidaMax2)+"%");
 		        	barVida2.setForeground(Color.RED);
-		        	
+		        	//cuando se quede uno de los dos contrincantes sin vida, saldrá una ventana de dialogo
 		        	if (jugador.getVida()> adversario.getVida() && adversario.getVida()<=0) {
 		        		consola_texto.setText("Has ganado!");
 		        		pelea.addActionListener(new ActionListener() {
@@ -567,6 +573,7 @@ public class VentanaMenu extends JFrame{
 				}
 			}
 		});
+		//crear boton limpiar consola
 		consola = new JButton("LIMPIAR CONSOLA");
 		consola.addActionListener(new ActionListener() {
 
@@ -584,6 +591,7 @@ public class VentanaMenu extends JFrame{
 		panelPersonatges2.setLayout(new BoxLayout(panelPersonatges2,BoxLayout.X_AXIS));
 		panelPersonatges3.setLayout(new BoxLayout(panelPersonatges3,BoxLayout.X_AXIS));
 		panelPersonatges.setVisible(false);
+		//cabecera personajes + nombre razas
 		cPersonajes = new JLabel("Choose your character");
 		cPersonajes.setFont(new Font("Arial", Font.PLAIN, 48));
 		humans = new JLabel("Humanos");
@@ -599,7 +607,7 @@ public class VentanaMenu extends JFrame{
 		dwarfs.setAlignmentX(dwarfs.CENTER_ALIGNMENT);
 		elfs.setAlignmentX(elfs.CENTER_ALIGNMENT);
 		
-		//ADD panelea en el panelPersonatges
+		//ADD paneles personajes y nombres de razas en el panelPersonatge
 		panelPersonatges.add(cPersonajes);
 		panelPersonatges.add(humans);
 		panelPersonatges.add(panelPersonatges1);
@@ -629,29 +637,15 @@ public class VentanaMenu extends JFrame{
 		imagenHA4.addActionListener(new ArmaSeleccionada());
 		imagenHA5 = new JButton(iA5);
 		imagenHA5.addActionListener(new ArmaSeleccionada());
-		imagenHA6 = new JButton(iA6);
-		imagenHA6.addActionListener(new ArmaSeleccionada());
 		imagenHA7 = new JButton(iA7);
 		imagenHA7.addActionListener(new ArmaSeleccionada());
 		imagenHA8 = new JButton(iA8);
 		imagenHA8.addActionListener(new ArmaSeleccionada());
-		imagenHA9 = new JButton(iA9);
-		imagenHA9.addActionListener(new ArmaSeleccionada());
-
-		imagenEA1 = new JButton(iA1);
-		imagenEA1.addActionListener(new ArmaSeleccionada());
+		
 		imagenEA2 = new JButton(iA2);
 		imagenEA2.addActionListener(new ArmaSeleccionada());
 		imagenEA3 = new JButton(iA3);
 		imagenEA3.addActionListener(new ArmaSeleccionada());
-		imagenEA4 = new JButton(iA4);
-		imagenEA4.addActionListener(new ArmaSeleccionada());
-		imagenEA5 = new JButton(iA5);
-		imagenEA5.addActionListener(new ArmaSeleccionada());
-		imagenEA6 = new JButton(iA6);
-		imagenEA6.addActionListener(new ArmaSeleccionada());
-		imagenEA7 = new JButton(iA7);
-		imagenEA7.addActionListener(new ArmaSeleccionada());
 		imagenEA8 = new JButton(iA8);
 		imagenEA8.addActionListener(new ArmaSeleccionada());
 		imagenEA9 = new JButton(iA9);
@@ -669,12 +663,8 @@ public class VentanaMenu extends JFrame{
 		imagenFA5.addActionListener(new ArmaSeleccionada());
 		imagenFA6 = new JButton(iA6);
 		imagenFA6.addActionListener(new ArmaSeleccionada());
-		imagenFA7 = new JButton(iA7);
-		imagenFA7.addActionListener(new ArmaSeleccionada());
 		imagenFA8 = new JButton(iA8);
 		imagenFA8.addActionListener(new ArmaSeleccionada());
-		imagenFA9 = new JButton(iA9);
-		imagenFA9.addActionListener(new ArmaSeleccionada());
 		
 		//add armas por raza
 		panelHumanoArmas1.add(imagenHA1);
@@ -739,7 +729,7 @@ public class VentanaMenu extends JFrame{
 		
 		panelBase.add(panel5, BorderLayout.SOUTH);
 		panelBase.setLayout(new BoxLayout(panelBase,BoxLayout.Y_AXIS));
-		//TODO
+		//crear consola para el texto y crearla vacia para poder append texto
 		consola_texto = new JTextArea(10,70);
 		consola_texto.setText("");
 		
@@ -754,9 +744,10 @@ public class VentanaMenu extends JFrame{
 		this.add(panelEntitats, BorderLayout.CENTER);
 		this.add(panelBase, BorderLayout.NORTH);
 		
-		
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
+	//panel para seleccionar la raza
 	class SeleccionarRaza implements ActionListener {
 		static personajes Enemic() {
 			Random rand = new Random();
@@ -848,9 +839,10 @@ public class VentanaMenu extends JFrame{
 		}
 		
 	}
+	//volver al menu cuando clickas a un personaje
 	class RazaSeleccionada implements ActionListener {
 		static ArrayList listar_personajes() {
-			//TODO
+			
 			ArrayList<personajes> personajes = new ArrayList<personajes>();
 			String usuari = "root";
 			String clau = "1234";
@@ -940,6 +932,7 @@ public class VentanaMenu extends JFrame{
 		}
 		
 	}
+	//mostrar panel de las armas especificas
 	class SeleccionarArma implements ActionListener {
 		static ArrayList<armas> ArmaEnemic() {
 			ArrayList<armas> armasEnemic = new ArrayList<armas>();
@@ -1064,6 +1057,7 @@ public class VentanaMenu extends JFrame{
         }
         
     }
+	//volver al panel de la pelea al  clickar en un arma
     class ArmaSeleccionada implements ActionListener {
     	static ArrayList listar_arma() {
     		ArrayList<armas> armas = new ArrayList();
@@ -1214,12 +1208,11 @@ public class VentanaMenu extends JFrame{
 		{
 			System.out.println("No trobat el Driver MySQL per JDBC.");
 		} catch (SQLException e) {
-			System.out.println("ExcepciÃ³ del tipus SQL");
+			System.out.println("Excepcio del tipus SQL");
 			e.printStackTrace();
 		}
 	}
-		
-    	//TODO
+	
         public int PeleaImplementada(personajes p) {
         	if(p.getVida() >0) {
         		
@@ -1232,662 +1225,6 @@ public class VentanaMenu extends JFrame{
         	}
         	
         	
-        }
-        //-----------------------------------------------Segundo Constructor----------------------------------------------------
-        public VentanaMenu(usuario pj, personajes jugador) {
-    		user = pj;
-    		
-    		//this.setLocationRelativeTo(null);
-    		this.setSize(1000,800);
-    		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    		this.setResizable(false);
-    		panelBase= new JPanel();
-    		panel1 = new JPanel();
-    		panel2 = new JPanel();
-    		panel3 = new JPanel();
-    		panel4 = new JPanel();
-    		panel5 = new JPanel();
-    		panelEntitats = new JPanel();
-    		panelPersonatges = new JPanel();
-    		panelPersonatges1 = new JPanel();
-    		panelPersonatges2 = new JPanel();
-    		panelPersonatges3 = new JPanel();
-    		panelArmas = new JPanel();
-    		panelStats1 = new JPanel();
-    		panelStats2 = new JPanel();
-    		panelImgArmaBars = new JPanel();
-    		panelBarArmas= new JPanel();
-    		panelBarVida1= new JPanel();
-    		panelBarVida2= new JPanel();
-    		panelHumanoArmas1= new JPanel();
-    		panelHumanoArmas2= new JPanel();
-    		panelHumanoArmas3= new JPanel();
-    		panelEnanoArmas1= new JPanel();
-    		panelEnanoArmas2= new JPanel();
-    		panelEnanoArmas3= new JPanel();
-    		panelElfoArmas1= new JPanel();
-    		panelElfoArmas2= new JPanel();
-    		panelElfoArmas3= new JPanel();
-    		panelHumanoArmas= new JPanel();
-    		panelEnanoArmas= new JPanel();
-    		panelElfoArmas= new JPanel();
-    		panelBarArmas2 = new JPanel();
-    		panelImgArmaBars2 = new JPanel();
-    		
-    		//Imagen de personaje sin seleccionar
-    		ImageIcon imagen1 = new ImageIcon("imagenes/"+ jugador.getName() +".jpg");
-    		imgMisterio1 = new JLabel(imagen1);
-    		imgMisterio2 = new JLabel(imagen1);
-    		//imagen arma sin seleccionar
-    		ImageIcon imagenArma1 = new ImageIcon("imagenes/interrogante.png");
-    		imgArmaMisterio = new JLabel(imagenArma1);
-    		imgArmaMisterio2 = new JLabel(imagenArma1);
-    		panelImgArmaBars.add(imgArmaMisterio);
-    		//add img arma a panel del jugador2
-    		panelImgArmaBars2.add(imgArmaMisterio2);
-    		
-    		
-    		//add botones
-    		personaje = new JButton("PERSONAJE");
-    		personaje.addActionListener(new SeleccionarRaza());
-    		arma = new JButton("ARMA");
-    		arma.addActionListener(new SeleccionarArma());
-    		ranking = new JButton("RANKING");
-    		ranking.addActionListener(new ActionListener() {
-    			
-    			public void actionPerformed(ActionEvent arg0) {
-    				a =new Ventana_ranking();
-    			}
-    		});
-    		panel1.add(personaje);
-    		panel1.add(arma);
-    		panel1.add(ranking);
-    		panelBase.add(panel1, BorderLayout.NORTH);
-    		
-    		
-    		//imagenes de personajes
-    		ImageIcon iH = new ImageIcon("imagenes/maduro.png");
-    		ImageIcon iDw = new ImageIcon("imagenes/marcos.png");
-    		ImageIcon iE = new ImageIcon("imagenes/legolas.png");
-    		ImageIcon iH2 = new ImageIcon("imagenes/gerardo.png");
-    		ImageIcon iDw2 = new ImageIcon("imagenes/jwan.png");
-    		ImageIcon iE2 = new ImageIcon("imagenes/meliso.png");
-    		ImageIcon iH3 = new ImageIcon("imagenes/rigoberto.png");
-    		ImageIcon iDw3 = new ImageIcon("imagenes/ang.png");
-    		ImageIcon iE3 = new ImageIcon("imagenes/tomas.png");
-    		imagenH = new JButton(iH);
-    		imagenH.addActionListener(new RazaSeleccionada());
-    		imagenH2 = new JButton(iH2);
-    		imagenH2.addActionListener(new RazaSeleccionada());
-    		imagenH3 = new JButton(iH3);
-    		imagenH3.addActionListener(new RazaSeleccionada());
-    		imagenD = new JButton(iDw);
-    		imagenD.addActionListener(new RazaSeleccionada());
-    		imagenD2 = new JButton(iDw2);
-    		imagenD2.addActionListener(new RazaSeleccionada());
-    		imagenD3 = new JButton(iDw3);
-    		imagenD3.addActionListener(new RazaSeleccionada());
-    		imagenE = new JButton(iE);
-    		imagenE.addActionListener(new RazaSeleccionada());
-    		imagenE2 = new JButton(iE2);
-    		imagenE2.addActionListener(new RazaSeleccionada());
-    		imagenE3 = new JButton(iE3);
-    		imagenE3.addActionListener(new RazaSeleccionada());
-    		
-    		panelPersonatges1.add(imagenH);
-    		panelPersonatges1.add(imagenH2);
-    		panelPersonatges1.add(imagenH3);
-    		panelPersonatges2.add(imagenD);
-    		panelPersonatges2.add(imagenD2);
-    		panelPersonatges2.add(imagenD3);
-    		panelPersonatges3.add(imagenE);
-    		panelPersonatges3.add(imagenE2);
-    		panelPersonatges3.add(imagenE3);
-    		
-    		//Color y stats al panelstats1
-    		barVida1 = new JProgressBar(0, vidaMax1);
-    		barVida1.setStringPainted(true);
-    		barVida1.setString("Vida: " +(vida1*100)/vidaMax1 + "%");
-    		barVida1.setForeground(Color.RED);
-    		
-    		barForca1 = new JProgressBar(0, forcaMax);
-    		barForca1.setStringPainted(true);
-    		barForca1.setString("Forca: "+ for1);
-    		barForca1.setForeground(Color.orange);
-    		
-    		barDefensa1 = new JProgressBar(0, defMax);
-    		barDefensa1.setStringPainted(true);
-    		barDefensa1.setString("Def: "+ def1);
-    		barDefensa1.setForeground(Color.blue);
-    		
-    		barAgilitat1 = new JProgressBar(0, agiMax);
-    		barAgilitat1.setStringPainted(true);
-    		barAgilitat1.setString("Agi: "+ agi1);
-    		barAgilitat1.setForeground(Color.cyan);
-    		
-    		barVelocitat1 = new JProgressBar(0, velMax);
-    		barVelocitat1.setStringPainted(true);
-    		barVelocitat1.setString("Vel: "+ vel1);
-    		barVelocitat1.setForeground(Color.LIGHT_GRAY);
-    		
-    		panelStats1.add(barForca1);
-    		panelStats1.add(barDefensa1);
-    		panelStats1.add(barAgilitat1);
-    		panelStats1.add(barVelocitat1);
-    		
-    		panelStats1.setLayout(new BoxLayout(panelStats1, BoxLayout.Y_AXIS));
-    		panel2.add(panelStats1);
-    		panel2.add(imgMisterio1);
-    		panelBarVida1.add(barVida1);
-    		
-    		// add barras de stats
-    		barForcaA1 = new JProgressBar(0,5);
-    		barDefensaA1 = new JProgressBar(0,0);
-    		barAgilitatA1 = new JProgressBar(0,0);
-    		barVelocitatA1 = new JProgressBar(0,5);
-    		
-    		barForcaA1.setStringPainted(true);
-    		barForcaA1.setValue(forA1);
-    		barForcaA1.setString("str: "+ forA1);
-    		barForcaA1.setForeground(Color.orange);
-    		
-    		barDefensaA1.setValue(defA1);
-    		barDefensaA1.setString("def: "+ defA1);
-    		barDefensaA1.setStringPainted(true);
-    		barDefensaA1.setForeground(Color.BLUE);
-    		
-    		barAgilitatA1.setValue(agiA1);
-    		barAgilitatA1.setString("agi: "+ agiA1);
-    		barAgilitatA1.setStringPainted(true);
-    		barAgilitatA1.setForeground(Color.cyan);
-    		
-    		barVelocitatA1.setValue(velA1);
-    		barVelocitatA1.setString("vel: "+ velA1);
-    		barVelocitatA1.setStringPainted(true);
-    		barVelocitatA1.setForeground(Color.LIGHT_GRAY);
-    		
-    		panelBarArmas.add(barForcaA1);
-    		panelBarArmas.add(barDefensaA1);
-    		panelBarArmas.add(barAgilitatA1);
-    		panelBarArmas.add(barVelocitatA1);
-    		//panel stats arma vertical
-    		panelBarArmas.setLayout(new BoxLayout(panelBarArmas,BoxLayout.Y_AXIS));
-    		panelImgArmaBars.add(panelBarArmas);
-    		//panel donde el de arriba es la barra de vida en vertical
-    		panelBarVida1.setLayout(new BoxLayout(panelBarVida1,BoxLayout.Y_AXIS));
-    		panel2.add(panelBarVida1);
-    		//poner el panel de la imagen y las barras de stats de arma en horizontal
-    		panelImgArmaBars.setLayout(new BoxLayout(panelImgArmaBars,BoxLayout.X_AXIS));
-    		panelBarVida1.add(panelImgArmaBars);
-    		// panel que contiene los elementos de las barras, la imagen del personaje y las stats de armas en horizontal
-    		panel2.setLayout(new BoxLayout(panel2,BoxLayout.X_AXIS));
-    		
-    		//Stats panelstats 2 + setStringPainted true
-    		barVida2 = new JProgressBar(0, vidaMax2);
-    		barVida2.setStringPainted(true);
-    		barForca2 = new JProgressBar(0, forcaMax);
-    		barForca2.setStringPainted(true);
-    		barForca2.setString("Forca: "+ for2);
-    		barDefensa2 = new JProgressBar(0, defMax);
-    		barDefensa2.setStringPainted(true);
-    		barDefensa2.setString("Def: "+ def2);
-    		barAgilitat2 = new JProgressBar(0, agiMax);
-    		barAgilitat2.setStringPainted(true);
-    		barAgilitat2.setString("Agi: "+ agi2);
-    		barVelocitat2 = new JProgressBar(0, velMax);
-    		barVelocitat2.setStringPainted(true);
-    		barVelocitat2.setString("Vel: "+ vel2);
-
-    		//color de las barras
-    		
-    		barVida2.setForeground(Color.RED);
-    		barVida2.setStringPainted(true);
-    		barForca2.setStringPainted(true);
-    		barForca2.setForeground(Color.orange);
-    		barDefensa2.setStringPainted(true);
-    		barDefensa2.setForeground(Color.blue);
-    		barAgilitat2.setStringPainted(true);
-    		barAgilitat2.setForeground(Color.cyan);
-    		barVelocitat2.setStringPainted(true);
-    		barVelocitat2.setForeground(Color.LIGHT_GRAY);
-    		
-    		barVida2.setForeground(Color.RED);
-    		barVida2.setStringPainted(true);
-    		barVida2.setValue(vida2);
-    		barVida2.setString("Vida: " +(vida2*100)/vidaMax2+"%");
-    		
-    		
-    		panelStats2.add(barForca2);
-    		panelStats2.add(barDefensa2);
-    		panelStats2.add(barAgilitat2);
-    		panelStats2.add(barVelocitat2);
-
-    		panelStats2.setLayout(new BoxLayout(panelStats2, BoxLayout.Y_AXIS));
-    		//-------------------------------------------------------------------
-    		
-    		panelBarVida2.add(barVida2);
-    		// add barras de stats
-    		barForcaA2 = new JProgressBar(0,5);
-    		barDefensaA2 = new JProgressBar(0,0);
-    		barAgilitatA2 = new JProgressBar(0,0);
-    		barVelocitatA2 = new JProgressBar(0,5);
-    		
-    		barForcaA2.setStringPainted(true);
-    		barForcaA2.setValue(forA1);
-    		barForcaA2.setString("str: "+ forA1);
-    		barForcaA2.setForeground(Color.orange);
-    		
-    		barDefensaA2.setValue(defA1);
-    		barDefensaA2.setString("def: "+ defA1);
-    		barDefensaA2.setStringPainted(true);
-    		barDefensaA2.setForeground(Color.BLUE);
-    		
-    		barAgilitatA2.setValue(agiA1);
-    		barAgilitatA2.setString("agi: "+ agiA1);
-    		barAgilitatA2.setStringPainted(true);
-    		barAgilitatA2.setForeground(Color.cyan);
-    		
-    		barVelocitatA2.setValue(velA1);
-    		barVelocitatA2.setString("vel: "+ velA1);
-    		barVelocitatA2.setStringPainted(true);
-    		barVelocitatA2.setForeground(Color.LIGHT_GRAY);
-    		
-    		panelBarArmas2.add(barForcaA2);
-    		panelBarArmas2.add(barDefensaA2);
-    		panelBarArmas2.add(barAgilitatA2);
-    		panelBarArmas2.add(barVelocitatA2);
-    		panelBarArmas2.setLayout(new BoxLayout(panelBarArmas2,BoxLayout.Y_AXIS));
-    		panelImgArmaBars2.add(panelBarArmas2);
-    		panelBarVida2.setLayout(new BoxLayout(panelBarVida2,BoxLayout.Y_AXIS));
-    		
-    		//set panelImgArmaBars a boxlayout
-    		panelImgArmaBars2.setLayout(new BoxLayout(panelImgArmaBars2,BoxLayout.X_AXIS));
-    		panelBarVida2.add(panelImgArmaBars2);
-    		//-------------------------------------------------------------------
-    		panel3.add(panelStats2);
-    		panel3.add(imgMisterio2);
-    		panel3.add(panelBarVida2);
-    		panel3.setLayout(new BoxLayout(panel3,BoxLayout.X_AXIS));
-    		
-    		//TODO
-    		pelea = new JButton("PELEA");
-    		Random rand = new Random();
-    		ArrayList<personajes> listaJugadores = new ArrayList<personajes>();
-    		pelea.addActionListener(new ActionListener() {
-    			
-    			public void actionPerformed(ActionEvent arg0) {
-    				velTot1 = vel1 + velA1;
-    				velTot2 = vel2 + velA2;
-    				if (!imgMisterio1.getIcon().toString().equals("imagenes/PersonaAnonima.jpg") && !imgArmaMisterio.getIcon().toString().equals("imagenes/interrogante.png")) {
-    					
-    					personajes jugador = new personajes(name1,vida1,for1,agi1,vel1,def1, forA1,velA1);
-    					personajes adversario = new personajes(name2,vida2,for2,agi2,vel2,def2, forA2,velA2);
-    					
-    					
-    					panel1.setVisible(false);
-    					if ((velTot1)>(velTot2) && jugador.getVida()>0 && adversario.getVida()>0) {
-    						consola_texto.append("Torn de "+ jugador.getName()+"(jugador)\n");
-    						if ((agi1*10) >rand.nextInt(1,100)) {
-	    						adversario.setVida(adversario.getVida() -PeleaImplementada(jugador));
-	    						vida2 = adversario.getVida();
-	    						consola_texto.append("Has atacado a "+ adversario.getName()+"!\n\n");
-    						}else {
-    							consola_texto.append("Has fallado el ataque\n\n");
-    						}
-    						consola_texto.append("Torn de "+ adversario.getName()+"\n");
-    						if ((agi2*100) > rand.nextInt()) {
-    							
-    							jugador.setVida(jugador.getVida() -PeleaImplementada(adversario));
-	    		        		consola_texto.append(adversario.getName()+" te ha atacado!\n\n");
-	    						vida1 = jugador.getVida();
-    						}else {
-    							consola_texto.append("Ha fallado el ataque"+ adversario.getName()+"\n\n");
-    						}
-    		        		
-    						
-    					}else if ((velTot1)<(velTot2) && jugador.getVida()>0 && adversario.getVida()>0) {
-    						consola_texto.append("Torn de "+ adversario.getName()+"\n");
-    						if ((agi2*10) > rand.nextInt()) {
-    							
-    							jugador.setVida(jugador.getVida() -PeleaImplementada(adversario));
-	    		        		consola_texto.append(adversario.getName()+" te ha atacado!\n\n");
-	    						vida1 = jugador.getVida();
-    						}else {
-    							consola_texto.append("Ha fallado el ataque"+ adversario.getName()+"\n\n");
-    						}
-    						consola_texto.append("Torn de "+ jugador.getName()+"(jugador)\n");
-    						if ((agi1*10) >rand.nextInt(1,100)) {
-	    						adversario.setVida(adversario.getVida() -PeleaImplementada(jugador));
-	    						vida2 = adversario.getVida();
-	    						consola_texto.append("Has atacado a "+ adversario.getName()+"!\n\n");
-    						}else {
-    							consola_texto.append("Has fallado el ataque\n\n");
-    						}
-    					}else if (velTot1 == velTot2) {
-    						if (agi1> agi2 && jugador.getVida()>0 && adversario.getVida()>0) {
-    							consola_texto.append("Torn de "+ jugador.getName()+"(jugador)\n");
-        						if ((agi1*10) >rand.nextInt(1,100)) {
-    	    						adversario.setVida(adversario.getVida() -PeleaImplementada(jugador));
-    	    						vida2 = adversario.getVida();
-    	    						consola_texto.append("Has atacado a "+ adversario.getName()+"!\n\n");
-        						}else {
-        							consola_texto.append("Has fallado el ataque\n\n");
-        						}
-        						consola_texto.append("Torn de "+ adversario.getName()+"\n");
-        						if ((agi2*10) > rand.nextInt()) {
-        							
-        							jugador.setVida(jugador.getVida() -PeleaImplementada(adversario));
-    	    		        		consola_texto.append(adversario.getName()+" te ha atacado!\n\n");
-    	    						vida1 = jugador.getVida();
-        						}else {
-        							consola_texto.append("Ha fallado el ataque"+ adversario.getName()+"\n\n");
-        						}
-    						}else if (agi1<agi2 && jugador.getVida()>0 && adversario.getVida()>0) {
-    							consola_texto.append("Torn de "+ adversario.getName()+"\n");
-    							if ((agi2*10) > rand.nextInt()) {
-        							
-        							jugador.setVida(jugador.getVida() -PeleaImplementada(adversario));
-    	    		        		consola_texto.append(adversario.getName()+" te ha atacado!\n\n");
-    	    						vida1 = jugador.getVida();
-        						}else {
-        							consola_texto.append("Ha fallado el ataque"+ adversario.getName()+"\n\n");
-        						}
-    							consola_texto.append("Torn de "+ jugador.getName()+"(jugador)\n");
-        						if ((agi1*10) >rand.nextInt(1,100)) {
-    	    						adversario.setVida(adversario.getVida() -PeleaImplementada(jugador));
-    	    						vida2 = adversario.getVida();
-    	    						consola_texto.append("Has atacado a "+ adversario.getName()+"!\n\n");
-        						}else {
-        							consola_texto.append("Has fallado el ataque\n\n");
-        						}
-    						}else if (agi1 == agi2) {
-    							int numeroR = rand.nextInt(0,2);
-    							System.out.println(numeroR);
-    							if (numeroR ==1) {
-    								consola_texto.append("Torn de "+ jugador.getName()+"(jugador)\n");
-            						if ((agi1*10) >rand.nextInt(1,100)) {
-        	    						adversario.setVida(adversario.getVida() -PeleaImplementada(jugador));
-        	    						vida2 = adversario.getVida();
-        	    						consola_texto.append("Has atacado a "+ adversario.getName()+"!\n\n");
-            						}else {
-            							consola_texto.append("Has fallado el ataque\n\n");
-            						}
-            						consola_texto.append("Torn de "+ adversario.getName()+"\n");
-            						if ((agi2*10) > rand.nextInt()) {
-            							
-            							jugador.setVida(jugador.getVida() -PeleaImplementada(adversario));
-        	    		        		consola_texto.append(adversario.getName()+" te ha atacado!\n\n");
-        	    						vida1 = jugador.getVida();
-            						}else {
-            							consola_texto.append("Ha fallado el ataque"+ adversario.getName()+"\n\n");
-            						}
-    							}else {
-    								consola_texto.append("Torn de "+ adversario.getName()+"\n");
-    								if ((agi2*10) > rand.nextInt()) {
-    	    							
-    	    							jugador.setVida(jugador.getVida() -PeleaImplementada(adversario));
-    		    		        		consola_texto.append(adversario.getName()+" te ha atacado!\n\n");
-    		    						vida1 = jugador.getVida();
-    	    						}else {
-    	    							consola_texto.append("Ha fallado el ataque"+ adversario.getName()+"\n\n");
-    	    						}
-    								consola_texto.append("Torn de "+ jugador.getName()+"(jugador)\n");
-    	    						if ((agi1*10) >rand.nextInt(1,100)) {
-    		    						adversario.setVida(adversario.getVida() -PeleaImplementada(jugador));
-    		    						vida2 = adversario.getVida();
-    		    						consola_texto.append("Has atacado a "+ adversario.getName()+"!\n\n");
-    	    						}else {
-    	    							consola_texto.append("Has fallado el ataque\n\n");
-    	    						}
-    							}
-    						}
-    					}
-    					barVida1.setStringPainted(true);
-    					barVida1.setMaximum(vidaMax1);
-    		        	barVida1.setValue(jugador.getVida());
-    		        	barVida1.setString("vida: "+((jugador.getVida()*100)/vidaMax1)+"%");
-    		        	barVida1.setForeground(Color.RED);
-    		        	
-    		        	
-    		        	
-    		        	barVida2.setStringPainted(true);
-    		        	barVida2.setMaximum(vidaMax2);
-    		        	barVida2.setValue(adversario.getVida());
-    		        	barVida2.setString("vida: "+((adversario.getVida()*100)/vidaMax2)+"%");
-    		        	barVida2.setForeground(Color.RED);
-    		        	
-    		        	if (jugador.getVida()> adversario.getVida() && adversario.getVida()<=0) {
-    		        		consola_texto.setText("Has ganado!");
-    		        		pelea.addActionListener(new ActionListener() {
-
-    							@Override
-    							public void actionPerformed(ActionEvent e) {
-    								int res = JOptionPane.showConfirmDialog(null,"Fin de la batalla\nQuieres volver a jugar?","HAS GANADO!!!!", JOptionPane.YES_NO_OPTION);
-    								if (res == JOptionPane.YES_OPTION) {
-    									Yes_Opt();
-    								}else if (res == JOptionPane.NO_OPTION) {
-    									No_Opt();
-    								} else {
-    									No_Opt();
-    								}
-    							}
-    		        			
-    		        		});
-    		        	}else if (adversario.getVida()> jugador.getVida() && jugador.getVida()<=0) {
-    		        		consola_texto.setText("Ha ganado el jugador "+ adversario.getName()+"!");
-    		        		
-    		        		pelea.addActionListener(new ActionListener() {
-
-    							@Override
-    							public void actionPerformed(ActionEvent e) {
-    								int res = JOptionPane.showConfirmDialog(null,"Fin de la batalla\nQuieres volver a jugar?","HAS PERDIDO...", JOptionPane.YES_NO_OPTION);
-    								if (res == JOptionPane.YES_OPTION) {
-    									Yes_Opt();
-    								}else if (res == JOptionPane.NO_OPTION) {
-    									No_Opt();
-    								}else {
-    									No_Opt();
-    								}
-    							}
-    		        			
-    		        		});
-    		        	}
-    				} else {
-    					JOptionPane.showMessageDialog(null,"Selecciona primero un personaje y un arma","No es posible empezar a jugar", JOptionPane.INFORMATION_MESSAGE);
-    					
-    				}
-    			}
-    		});
-    		consola = new JButton("LIMPIAR CONSOLA");
-    		consola.addActionListener(new ActionListener() {
-
-    			@Override
-    			public void actionPerformed(ActionEvent e) {
-    				consola_texto.setText("");
-    				
-    			}
-    			
-    		});
-    		panel4.add(pelea);
-    		panel4.add(consola);
-    		//en panelPersonatges, add Panel Personatges 1,2,3
-    		panelPersonatges1.setLayout(new BoxLayout(panelPersonatges1,BoxLayout.X_AXIS));
-    		panelPersonatges2.setLayout(new BoxLayout(panelPersonatges2,BoxLayout.X_AXIS));
-    		panelPersonatges3.setLayout(new BoxLayout(panelPersonatges3,BoxLayout.X_AXIS));
-    		panelPersonatges.setVisible(false);
-    		cPersonajes = new JLabel("Choose your character");
-    		cPersonajes.setFont(new Font("Arial", Font.PLAIN, 48));
-    		humans = new JLabel("Humanos");
-    		dwarfs = new JLabel("Enanos");
-    		elfs = new JLabel("Elfos");
-    		humans.setFont(new Font("Arial", Font.PLAIN, 20));
-    		dwarfs.setFont(new Font("Arial", Font.PLAIN, 20));
-    		elfs.setFont(new Font("Arial", Font.PLAIN, 20));
-    		
-    		//PONER EL TEXTO EN EL CENTRO
-    		cPersonajes.setAlignmentX(cPersonajes.CENTER_ALIGNMENT);
-    		humans.setAlignmentX(humans.CENTER_ALIGNMENT);
-    		dwarfs.setAlignmentX(dwarfs.CENTER_ALIGNMENT);
-    		elfs.setAlignmentX(elfs.CENTER_ALIGNMENT);
-    		
-    		//ADD panelea en el panelPersonatges
-    		panelPersonatges.add(cPersonajes);
-    		panelPersonatges.add(humans);
-    		panelPersonatges.add(panelPersonatges1);
-    		panelPersonatges.add(dwarfs);
-    		panelPersonatges.add(panelPersonatges2);
-    		panelPersonatges.add(elfs);
-    		panelPersonatges.add(panelPersonatges3);
-    		panelPersonatges.setLayout(new BoxLayout(panelPersonatges,BoxLayout.Y_AXIS));
-    		
-    		//imagenes de Armas, anyadirlas a imagen, y luego al boton
-    		ImageIcon iA1 = new ImageIcon("armas/daga.png");
-    		ImageIcon iA2 = new ImageIcon("armas/espasa.png");
-    		ImageIcon iA3 = new ImageIcon("armas/destral.png");
-    		ImageIcon iA4 = new ImageIcon("armas/espases_dobles.png");
-    		ImageIcon iA5 = new ImageIcon("armas/simitarra.png");
-    		ImageIcon iA6 = new ImageIcon("armas/arc.png");
-    		ImageIcon iA7 = new ImageIcon("armas/katana.png");
-    		ImageIcon iA8 = new ImageIcon("armas/punyal.png");
-    		ImageIcon iA9 = new ImageIcon("armas/destral_dues_mans.png");
-    		imagenHA1 = new JButton(iA1);
-    		imagenHA1.addActionListener(new ArmaSeleccionada());
-    		imagenHA2 = new JButton(iA2);
-    		imagenHA2.addActionListener(new ArmaSeleccionada());
-    		imagenHA3 = new JButton(iA3);
-    		imagenHA3.addActionListener(new ArmaSeleccionada());
-    		imagenHA4 = new JButton(iA4);
-    		imagenHA4.addActionListener(new ArmaSeleccionada());
-    		imagenHA5 = new JButton(iA5);
-    		imagenHA5.addActionListener(new ArmaSeleccionada());
-    		imagenHA6 = new JButton(iA6);
-    		imagenHA6.addActionListener(new ArmaSeleccionada());
-    		imagenHA7 = new JButton(iA7);
-    		imagenHA7.addActionListener(new ArmaSeleccionada());
-    		imagenHA8 = new JButton(iA8);
-    		imagenHA8.addActionListener(new ArmaSeleccionada());
-    		imagenHA9 = new JButton(iA9);
-    		imagenHA9.addActionListener(new ArmaSeleccionada());
-
-    		imagenEA1 = new JButton(iA1);
-    		imagenEA1.addActionListener(new ArmaSeleccionada());
-    		imagenEA2 = new JButton(iA2);
-    		imagenEA2.addActionListener(new ArmaSeleccionada());
-    		imagenEA3 = new JButton(iA3);
-    		imagenEA3.addActionListener(new ArmaSeleccionada());
-    		imagenEA4 = new JButton(iA4);
-    		imagenEA4.addActionListener(new ArmaSeleccionada());
-    		imagenEA5 = new JButton(iA5);
-    		imagenEA5.addActionListener(new ArmaSeleccionada());
-    		imagenEA6 = new JButton(iA6);
-    		imagenEA6.addActionListener(new ArmaSeleccionada());
-    		imagenEA7 = new JButton(iA7);
-    		imagenEA7.addActionListener(new ArmaSeleccionada());
-    		imagenEA8 = new JButton(iA8);
-    		imagenEA8.addActionListener(new ArmaSeleccionada());
-    		imagenEA9 = new JButton(iA9);
-    		imagenEA9.addActionListener(new ArmaSeleccionada());
-    		
-    		imagenFA1 = new JButton(iA1);
-    		imagenFA1.addActionListener(new ArmaSeleccionada());
-    		imagenFA2 = new JButton(iA2);
-    		imagenFA2.addActionListener(new ArmaSeleccionada());
-    		imagenFA3 = new JButton(iA3);
-    		imagenFA3.addActionListener(new ArmaSeleccionada());
-    		imagenFA4 = new JButton(iA4);
-    		imagenFA4.addActionListener(new ArmaSeleccionada());
-    		imagenFA5 = new JButton(iA5);
-    		imagenFA5.addActionListener(new ArmaSeleccionada());
-    		imagenFA6 = new JButton(iA6);
-    		imagenFA6.addActionListener(new ArmaSeleccionada());
-    		imagenFA7 = new JButton(iA7);
-    		imagenFA7.addActionListener(new ArmaSeleccionada());
-    		imagenFA8 = new JButton(iA8);
-    		imagenFA8.addActionListener(new ArmaSeleccionada());
-    		imagenFA9 = new JButton(iA9);
-    		imagenFA9.addActionListener(new ArmaSeleccionada());
-    		
-    		//add armas por raza
-    		panelHumanoArmas1.add(imagenHA1);
-    		panelHumanoArmas1.add(imagenHA2);
-    		panelHumanoArmas1.add(imagenHA3);
-    		panelHumanoArmas2.add(imagenHA4);
-    		panelHumanoArmas2.add(imagenHA5);
-    		panelHumanoArmas2.add(imagenHA7);
-    		panelHumanoArmas3.add(imagenHA8);
-    		
-    		panelEnanoArmas1.add(imagenEA2);
-    		panelEnanoArmas1.add(imagenEA3);
-    		panelEnanoArmas1.add(imagenEA8);
-    		panelEnanoArmas2.add(imagenEA9);
-    		
-    		panelElfoArmas1.add(imagenFA1);
-    		panelElfoArmas1.add(imagenFA2);
-    		panelElfoArmas1.add(imagenFA3);
-    		panelElfoArmas2.add(imagenFA4);
-    		panelElfoArmas2.add(imagenFA5);
-    		panelElfoArmas2.add(imagenFA6);
-    		panelElfoArmas3.add(imagenFA8);
-    		// add armas especificas al panel y dar forma al layout
-    		
-    		panelHumanoArmas.add(panelHumanoArmas1);
-    		panelHumanoArmas.add(panelHumanoArmas2);
-    		panelHumanoArmas.add(panelHumanoArmas3);
-    		panelHumanoArmas.setLayout(new BoxLayout(panelHumanoArmas,BoxLayout.Y_AXIS));
-    		
-    		panelEnanoArmas.add(panelEnanoArmas1);
-    		panelEnanoArmas.add(panelEnanoArmas2);
-    		panelEnanoArmas.setLayout(new BoxLayout(panelEnanoArmas,BoxLayout.Y_AXIS));
-
-    		panelElfoArmas.add(panelElfoArmas1);
-    		panelElfoArmas.add(panelElfoArmas2);
-    		panelElfoArmas.add(panelElfoArmas3);
-    		panelElfoArmas.setLayout(new BoxLayout(panelElfoArmas,BoxLayout.Y_AXIS));
-    		//add armas a los paneles
-    		cArma = new JLabel("Choose your Weapon");
-    		cArma.setFont(new Font("Arial", Font.PLAIN, 48));
-    		cArma.setAlignmentX(cArma.CENTER_ALIGNMENT);
-    		//ADD panelea en el panelPersonatges
-    		panelArmas.setLayout(new BoxLayout(panelArmas,BoxLayout.Y_AXIS));
-      		panelArmas.add(cArma);
-    		panelArmas.add(panelHumanoArmas);
-    		panelArmas.add(panelEnanoArmas);
-    		panelArmas.add(panelElfoArmas);
-    		panelArmas.setVisible(false);
-    		
-    		//add panel2 (separator) y 3
-    		panel2.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0));
-    		panelBase.add(panel2, BorderLayout.WEST);
-    		
-    		panelBase.add(panel3, BorderLayout.EAST);
-    		
-    		//add botones de pelea y limpiar consola
-    		panel5.setOpaque(true);
-    		panel5.add(panel4);
-    		cons = new JLabel("\n\n");
-    		panel5.add(cons);
-    		panel5.setLayout(new BoxLayout(panel5,BoxLayout.Y_AXIS));
-    		
-    		panelBase.add(panel5, BorderLayout.SOUTH);
-    		panelBase.setLayout(new BoxLayout(panelBase,BoxLayout.Y_AXIS));
-    		//TODO
-    		consola_texto = new JTextArea(10,70);
-    		consola_texto.setText("");
-    		
-    		scroll_texto = new JScrollPane(consola_texto);
-    		panelBase.add(scroll_texto);
-    		
-    		panelEntitats.setLayout(new BoxLayout(panelEntitats,BoxLayout.Y_AXIS));
-    		//add panelPersonatges y panelArmas
-    		panelEntitats.add(panelPersonatges);
-    		panelEntitats.add(panelArmas);
-    		panelEntitats.setVisible(false);
-    		this.add(panelEntitats, BorderLayout.CENTER);
-    		this.add(panelBase, BorderLayout.NORTH);
-    		
-    		
-    		this.setVisible(true);
-    	
         }
         
     }
